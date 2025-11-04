@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Farienergy / Aplicacion — Plantilla de Proyecto
 
 Plantilla base con arquitectura Integra Evolucionada, scripts de bootstrap, asistentes locales para Continue y checkpoints de trazabilidad.
@@ -116,7 +115,3 @@ Qué hacen los scripts:
   - Archivos .txt, .md o .csv en la carpeta elegida (por defecto docs_ingested)
 - Carga al asistente:
   - Copia/pega o arrastra los archivos convertidos en Continue para que Aria los use como contexto
-=======
-# Soft-factory
-Plantilla base para todos los proyectos.
->>>>>>> 01063d89726bb57cb84988f21d2cf19e5c9e538c
