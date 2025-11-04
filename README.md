@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Farienergy / Aplicacion — Plantilla de Proyecto
 
 Plantilla base con arquitectura Integra Evolucionada, scripts de bootstrap, asistentes locales para Continue y checkpoints de trazabilidad.
@@ -104,7 +105,7 @@ Qué hacen los scripts:
 - Ver `PROYECTO.md` (Flujo de estados y Backlog)
 
 ## Ingesta de documentos (PDF, DOCX, XLSX)
-- Conversión a formatos de texto para que SOFÍA (Arquitecta) pueda contextualizarse:
+- Conversión a formatos de texto para que Aria (Arquitecta) pueda contextualizarse:
   - Bash: `./scripts/ingest-docs.sh docs_ingested assets/spec.pdf assets/requisitos.docx data/tablas.xlsx`
   - PowerShell: `./scripts/ingest-docs.ps1 -OutputDir docs_ingested assets/spec.pdf assets/requisitos.docx data/tablas.xlsx`
 - Requisitos:
@@ -114,4 +115,8 @@ Qué hacen los scripts:
 - Salida:
   - Archivos .txt, .md o .csv en la carpeta elegida (por defecto docs_ingested)
 - Carga al asistente:
-  - Copia/pega o arrastra los archivos convertidos en Continue para que SOFÍA los use como contexto
+  - Copia/pega o arrastra los archivos convertidos en Continue para que Aria los use como contexto
+=======
+# Soft-factory
+Plantilla base para todos los proyectos.
+>>>>>>> 01063d89726bb57cb84988f21d2cf19e5c9e538c
