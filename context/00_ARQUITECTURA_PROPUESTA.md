@@ -5,6 +5,7 @@ Esta propuesta presenta una arquitectura Integra Evolucionada, centrada en:
 - Simplicidad operativa y modularidad.
 - Estándares claros de entrega y trazabilidad.
 - Capas separadas para dominio, aplicación y plataforma.
+- Aceleradores de UI/UX (web/mobile) para entrega ágil: Next.js + TypeScript + Tailwind CSS + shadcn/ui (Radix UI) + Framer Motion; Expo + NativeWind en mobile.
 
 Estructura estándar sugerida:
 - context/: documentación de arquitectura y decisiones.

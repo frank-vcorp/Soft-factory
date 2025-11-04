@@ -1,4 +1,4 @@
-# Farienergy / Aplicacion — Plantilla de Proyecto
+# {{CLIENT}} / {{PROJECT}} — Plantilla de Proyecto
 
 Plantilla base con arquitectura Integra Evolucionada, scripts de bootstrap, asistentes locales para Continue y checkpoints de trazabilidad.
 
@@ -27,13 +27,13 @@ Plantilla base con arquitectura Integra Evolucionada, scripts de bootstrap, asis
 
 ```powershell
 # Ejecutar con permisos por proceso (sin cambiar la política global)
-powershell -ExecutionPolicy Bypass -File ./scripts/bootstrap.ps1 -Client "Farienergy" -Project "ProyectoX" -Origin "https://github.com/ORG/ProyectoX.git" -Push
+powershell -ExecutionPolicy Bypass -File ./scripts/bootstrap.ps1 -Client "{{CLIENT}}" -Project "{{PROJECT}}" -Origin "https://github.com/ORG/{{PROJECT}}.git" -Push
 ```
 
 - Bash (macOS/Linux/WSL/Git Bash):
 
 ```bash
-./scripts/bootstrap.sh Farienergy ProyectoX --origin https://github.com/ORG/ProyectoX.git --push
+./scripts/bootstrap.sh {{CLIENT}} {{PROJECT}} --origin https://github.com/ORG/{{PROJECT}}.git --push
 ```
 
 Qué hacen los scripts:
@@ -70,7 +70,7 @@ Qué hacen los scripts:
 - scripts/ — automatizaciones (bootstrap, ingest-docs)
 - api/ — endpoints/contratos (placeholder)
 - .continue/assistants/ — asistentes locales de Continue (Aria e Inés)
-- Archivos clave: `.gitignore`, `.env.example`, `PROYECTO.md`, `bootstrap.md`
+- Archivos clave: `.gitignore`, `.env.example`, `PROYECTO.md`, `bootstrap.md` (los placeholders {{CLIENT}} y {{PROJECT}} se rellenan al ejecutar bootstrap)
 
 ## Asistentes de Continue (locales)
 - Ubicación: `.continue/assistants`
@@ -103,6 +103,13 @@ Qué hacen los scripts:
 ## Estado
 - Ver `PROYECTO.md` (Flujo de estados y Backlog)
 
+## Primeros pasos tras usar la plantilla
+1) Crear repo desde “Use this template” en GitHub.
+2) Clonar y entrar al proyecto: `git clone https://github.com/ORG/{{PROJECT}}.git ; cd {{PROJECT}}`
+3) Ejecutar bootstrap y publicar: `./scripts/bootstrap.sh {{CLIENT}} {{PROJECT}} --origin https://github.com/ORG/{{PROJECT}}.git --push`
+4) (Opcional) Verificar Actions y marcar como Template si aplicaba.
+5) Criterios de calidad: consulte meta/criterios_calidad.md y aplíquelos desde el inicio.
+
 ## Ingesta de documentos (PDF, DOCX, XLSX)
 - Conversión a formatos de texto para que Aria (Arquitecta) pueda contextualizarse:
   - Bash: `./scripts/ingest-docs.sh docs_ingested assets/spec.pdf assets/requisitos.docx data/tablas.xlsx`
@@ -115,3 +122,10 @@ Qué hacen los scripts:
   - Archivos .txt, .md o .csv en la carpeta elegida (por defecto docs_ingested)
 - Carga al asistente:
   - Copia/pega o arrastra los archivos convertidos en Continue para que Aria los use como contexto
+
+## Prompts de arranque (Aria/Inés)
+- Aria: `meta/prompts/aria_kickoff.txt`
+  - Uso: en Continue, selecciona Aria, pega el prompt, sustituye `{{CLIENT}}` y `{{PROJECT}}`, adjunta documentos convertidos si aplica.
+- Inés: `meta/prompts/ines_kickoff.txt`
+  - Uso: tras la propuesta de Aria, selecciona Inés, pega el prompt y ejecuta scaffolding/entregables definidos.
+- Criterios de calidad: `meta/criterios_calidad.md` (aplicarlos desde el inicio).

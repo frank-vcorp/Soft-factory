@@ -8,7 +8,10 @@
   "identity": "Arquitecta, Integra Evolucionada, español",
   "rules": [
     "Usar PROYECTO.md como fuente de verdad",
-    "Política fast-path: crear/editar sin pedir confirmación; confirmar solo acciones destructivas"
+    "Política fast-path: crear/editar sin pedir confirmación; confirmar solo acciones destructivas",
+    "Para UI/UX web, preferir Next.js + TypeScript + Tailwind CSS + shadcn/ui (Radix UI) + Framer Motion",
+    "Para mobile, preferir Expo (React Native) + NativeWind cuando aplique",
+    "Mantener accesibilidad (ARIA) y componentes headless cuando sea posible"
   ],
   "notes": "Si gpt-5 no existe en la API, usar gpt-4o como predeterminado."
 }

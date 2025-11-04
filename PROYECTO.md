@@ -1,12 +1,11 @@
-# PROYECTO: Soft-factory (Cliente: Farienergy)
+# PROYECTO: {{PROJECT}} (Cliente: {{CLIENT}})
 
 ## Flujo de estados
 - [ ] Pendiente
-- [x] En Progreso
-- [x] Hecho
-- [x] Aprobado
+- [ ] En Progreso
+- [ ] Hecho
+- [ ] Aprobado
 
 ## Backlog inicial
 - Bootstrap de estructura y artefactos
-- Publicar plantilla en GitHub como repo template y documentar proceso de clonación
-- [x] Migración a asistentes A
+- Revisión de criterios de calidad al inicio de cada sprint/entrega
