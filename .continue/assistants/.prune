@@ -1,0 +1,8 @@
+El repositorio ha migrado a Aria (Arquitecta) e Inés (Ejecutora).
+Eliminar archivos legacy:
+- .continue/assistants/sofia-arquitecta.json
+- .continue/assistants/sofia-ejecutora.json
+
+Si ves estos archivos, bórralos:
+- Bash: rm -f .continue/assistants/sofia-*.json
+- PowerShell: Remove-Item -Force .continue/assistants/sofia-*.json
