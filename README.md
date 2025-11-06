@@ -1,131 +1,79 @@
-# {{CLIENT}} / {{PROJECT}} — Plantilla de Proyecto
+# AMI / RD-AMI — Residente Digital con IA
 
-Plantilla base con arquitectura Integra Evolucionada, scripts de bootstrap, asistentes locales para Continue y checkpoints de trazabilidad.
+Plataforma ocupacional que digitaliza la ingesta de estudios clínicos y genera expedientes con apoyo de IA, desplegada sobre el ecosistema de Google Cloud (Firebase, Cloud Run, Firestore, Cloud Storage y Document AI).
 
-## Requisitos
-- Git 2.30+
-- Uno de:
-  - PowerShell 5.1+ o PowerShell 7+
-  - Bash (macOS/Linux/WSL/Git Bash)
-- Acceso a un remoto (GitHub/GitLab/Bitbucket) si harás push
-- En Continue Hub: secreto OPENAI_API_KEY configurado
+## Stack base (Google-first)
+- **Frontend:** Next.js + TypeScript + Tailwind CSS + shadcn/ui + Framer Motion (Firebase Hosting o Vercel).  
+- **Backend:** Cloud Run / Cloud Functions (Node.js + Python) para ingesta, OCR, normalización y motor de reglas clínicas.  
+- **Datos:** Firestore para metadatos, Cloud Storage para PDFs y BigQuery para analítica avanzada.  
+- **Integraciones:** Document AI / `pdfminer`, SendGrid o Gmail API, Cloud Pub/Sub, Cloud Monitoring.  
+- **Autenticación:** Firebase Auth con Custom Claims para roles (Médico, Calidad, Admin).  
+- **Observabilidad:** Cloud Logging, Monitoring y Trace + dashboards en Looker Studio.
 
-## Opciones de uso
-
-### Opción A: Usar como Template (GitHub recomendado)
-1. Publica este repo en GitHub y márcalo como Template (Settings > General > Template repository)
-2. Crea un nuevo repo desde “Use this template”
-3. Clona el repo nuevo y ejecuta el bootstrap para parametrizar Cliente/Proyecto y hacer push inicial
-
-### Opción B: Clonar y reconfigurar remoto
-1. Clona este boilerplate
-2. Ejecuta el bootstrap para parametrizar y cambiar el remoto
-
-## Bootstrap (genera estructura, commit inicial, remoto y push)
-
-- PowerShell (Windows):
-
-```powershell
-# Ejecutar con permisos por proceso (sin cambiar la política global)
-powershell -ExecutionPolicy Bypass -File ./scripts/bootstrap.ps1 -Client "{{CLIENT}}" -Project "{{PROJECT}}" -Origin "https://github.com/ORG/{{PROJECT}}.git" -Push
-```
-
-- Bash (macOS/Linux/WSL/Git Bash):
-
-```bash
-./scripts/bootstrap.sh {{CLIENT}} {{PROJECT}} --origin https://github.com/ORG/{{PROJECT}}.git --push
-```
-
-Qué hacen los scripts:
-- Regeneran/aseguran la estructura base y archivos mínimos
-- Inicializan git (si falta), aseguran rama main, hacen commit inicial
-- Configuran/actualizan el remoto origin (si se pasa) y hacen push (si se solicita)
-- Crean un checkpoint con fecha UTC en Checkpoints/
-
-## Uso detallado de los scripts
-
-- PowerShell:
-  - Parámetros:
-    - -Client "Farienergy" (por defecto)
-    - -Project "Aplicacion" (por defecto)
-    - -Origin "https://github.com/ORG/REPO.git" (opcional)
-    - -Push (opcional)
-  - Ejemplos:
-    - Solo local: `./scripts/bootstrap.ps1 -Client "Farienergy" -Project "Aplicacion"`
-    - Con remoto y push: `./scripts/bootstrap.ps1 -Client "Farienergy" -Project "Aplicacion" -Origin "https://github.com/ORG/REPO.git" -Push`
-
-- Bash:
-  - Argumentos posicionales: CLIENT PROJECT
-  - Flags: `--origin <URL>` | `--origin=<URL>`, `--push`
-  - Ejemplos:
-    - Solo local: `./scripts/bootstrap.sh Farienergy Aplicacion`
-    - Con remoto y push: `./scripts/bootstrap.sh Farienergy Aplicacion --origin https://github.com/ORG/REPO.git --push`
-
-## Estructura
-- context/ — arquitectura y decisiones
-- context/varios/ — notas varias
-- propuestas/ — alternativas y POCs
-- Checkpoints/ — hitos y estados del proyecto
-- meta/ — plantillas de control
-- scripts/ — automatizaciones (bootstrap, ingest-docs)
-- api/ — endpoints/contratos (placeholder)
-- .continue/assistants/ — asistentes locales de Continue (Aria e Inés)
-- Archivos clave: `.gitignore`, `.env.example`, `PROYECTO.md`, `bootstrap.md` (los placeholders {{CLIENT}} y {{PROJECT}} se rellenan al ejecutar bootstrap)
-
-## Asistentes de Continue (locales)
-- Ubicación: `.continue/assistants`
-- Secreto necesario: `OPENAI_API_KEY` en Continue Hub (Hub > Secrets)
-- Modelos (predeterminados y respaldo):
-  - Aria (Arquitecta): default `gpt-5`, respaldo `gpt-4o`
-  - Inés (Ejecutora): default `gpt-4o`, respaldo `gpt-5`
-- Si tu API no soporta `gpt-5`:
-  - Aria caerá a `gpt-4o` como respaldo
-  - Puedes retirar `gpt-5` del arreglo `models` en los JSON si deseas forzar su ausencia
+## Estructura del repositorio
+- `context/` — Arquitectura, plan de ejecución, cronograma y dossier técnico.  
+- `context/04_Documentacion_Sintetica/` — Visión, especificación funcional, diseño técnico, plan de pruebas y despliegue.  
+- `context/Plan_Ejecucion_RD-AMI.md` — Detalle de tareas técnicas por fase.  
+- `status-site/` — Sitio estático (HTML + Tailwind) publicado en cPanel para que AMI vea avances diarios.  
+- `api/` — Espacio reservado para contratos/endpoints.  
+- `meta/` — Plantillas de control, criterios de calidad y prompts de asistentes.  
+- `scripts/` — Automatizaciones (bootstrap, ingest-docs).  
+- `PROYECTO.md` — Fuente de verdad operativa (estados, backlog, próximos pasos).  
+- `Checkpoints/` — Bitácora de hitos (añadir uno por entrega relevante).
 
 ## Flujo de trabajo recomendado
-- PROYECTO.md como fuente de verdad
-- Commits pequeños y checkpoints en cada bootstrap/entrega
-- Documentar decisiones en `context/` y riesgos/supuestos en `context/dossier_tecnico.md`
+1. **Planeación:** Revisar `PROYECTO.md`, `context/Cronograma_Desarrollo_RD-AMI.md` y `context/Plan_Ejecucion_RD-AMI.md`.  
+2. **Diseño y decisiones:** Registrar hallazgos/definiciones en `context/` (carpetas clínicas, técnicas y legales).  
+3. **Implementación:** Atacar los módulos priorizados por fase, cumpliendo `meta/criterios_calidad.md`.  
+4. **Documentación viva:** Actualizar los archivos de `context/04_Documentacion_Sintetica` cuando cambien alcance, arquitectura o QA.  
+5. **Seguimiento:** Publicar el estado en `web/progress-dashboard` y compartirlo con Alan/AMI para transparencia.  
+6. **Entrega:** Generar checkpoint en `Checkpoints/` y sostener revisión con el cliente.
 
-## Troubleshooting
-- No hace push:
-  - Verifica URL y permisos del remoto (`git remote -v`)
-  - Autenticación HTTPS/SSH correcta
-- PowerShell bloquea scripts:
-  - Usa ejecución por proceso: `powershell -ExecutionPolicy Bypass -File ./scripts/bootstrap.ps1 ...`
-- Modelos no disponibles (p. ej. `gpt-5`):
-  - La Arquitecta usará `gpt-4o` como respaldo automáticamente
-  - Ajusta los JSON en `.continue/assistants/` si quieres forzar modelos específicos
+## Documentación esencial
+- `context/04_Documentacion_Sintetica/01_Vision_General_Proyecto.md` — Objetivos y alcance del piloto.  
+- `context/04_Documentacion_Sintetica/02_Especificacion_Funcional.md` — Flujo funcional y módulos.  
+- `context/04_Documentacion_Sintetica/03_Diseno_Tecnico_Inicial.md` — Arquitectura GCP/Firebase.  
+- `context/04_Documentacion_Sintetica/04_Plan_Pruebas_Preliminar.md` — Estrategia QA por módulo.  
+- `context/04_Documentacion_Sintetica/05_Estrategia_Despliegue.md` — DevOps y CI/CD.  
+- `context/Cronograma_Desarrollo_RD-AMI.md` — Hitos y duración (17–24 semanas).  
+- `context/Plan_Ejecucion_RD-AMI.md` — Tareas técnicas detalladas por fase.  
+- `context/dossier_tecnico.md` — Decisiones, supuestos y riesgos.  
+- `meta/prompts/*` — Guías para asistentes Aria/Inés.
+
+## Herramientas y scripts
+- `./scripts/bootstrap.sh CLIENTE PROYECTO --origin <url> --push` — Regenera estructura, remoto y checkpoint inicial.  
+- `./scripts/ingest-docs.sh <output_dir> <archivos...>` — Convierte PDFs/DOCX/XLSX a texto para contextualizar a los asistentes.  
+- `meta/checklists/*` — Verificaciones previas a cada entrega.  
+- `web/progress-dashboard/README.md` — Pasos para configurar Firebase Hosting y exponer el tablero al cliente.
+
+## Sitio ligero para AMI (status-site/)
+- HTML + Tailwind (sin dependencias) pensado para alojarse en cPanel compartido.  
+- Consume `status-site/data/status.json` (generado desde `PROYECTO.md`) y muestra avance por fase/módulo con un estilo limpio.  
+- Despliegue automático mediante workflow `deploy-status-site.yml` (FTP/FTPS). Basta con exponer la carpeta pública vía cPanel y proporcionar credenciales en los secrets.
+
+## Sincronización automática del tablero
+- `PROYECTO.md` contiene la tabla `Tablero — Módulos fuente` (entre `progress-modules:start/end`); edita ahí los avances y porcentajes.  
+- Ejecuta `./scripts/publish-status.sh` (envuelve `npm run sync:dashboard` y deja `status-site/data/status.json` listo en staging) antes de cada commit/push.  
+- El workflow `.github/workflows/deploy-status-site.yml` corre en cada push a `main`, genera el dataset y publica `status-site/` en tu hosting compartido.
+
+### Secrets necesarios para el deploy a cPanel
+1. `CPANEL_HOST` — Host del FTP/FTPS (ej. `ftp.midominio.com`).  
+2. `CPANEL_USERNAME` — Usuario del FTP.  
+3. `CPANEL_PASSWORD` — Contraseña o token.  
+4. `CPANEL_PORT` — Puerto (21 para FTP/FTPS, 990 si usas FTPS implícito).  
+5. `CPANEL_TARGET_DIR` — Ruta remota (ej. `/public_html/rd-ami-status/`).  
+
+> El workflow usa `SamKirkland/FTP-Deploy-Action`; habilita FTPS en tu hosting para mantener la transferencia cifrada.
+
+## Requisitos locales
+- Git 2.30+, Node.js LTS, pnpm/npm/yarn.  
+- Acceso a proyecto Firebase/GCP con roles mínimamente necesarios (Storage Admin, Firestore Admin para staging).  
+- Secreto `OPENAI_API_KEY` configurado si se usan los asistentes locales de Continue.
+
+## Estado y próximos hitos
+- Ver `PROYECTO.md` para backlog y estados.  
+- Validar `context/Plan_Ejecucion_RD-AMI.md` con Alan, habilitar el tablero y arrancar la Fase 0 (MVS).  
+- Cada hito debe cerrar con checkpoint en `Checkpoints/` y actualización del tablero público.
 
 ## Licencia
-- MIT (ver LICENSE)
-
-## Estado
-- Ver `PROYECTO.md` (Flujo de estados y Backlog)
-
-## Primeros pasos tras usar la plantilla
-1) Crear repo desde “Use this template” en GitHub.
-2) Clonar y entrar al proyecto: `git clone https://github.com/ORG/{{PROJECT}}.git ; cd {{PROJECT}}`
-3) Ejecutar bootstrap y publicar: `./scripts/bootstrap.sh {{CLIENT}} {{PROJECT}} --origin https://github.com/ORG/{{PROJECT}}.git --push`
-4) (Opcional) Verificar Actions y marcar como Template si aplicaba.
-5) Criterios de calidad: consulte meta/criterios_calidad.md y aplíquelos desde el inicio.
-
-## Ingesta de documentos (PDF, DOCX, XLSX)
-- Conversión a formatos de texto para que Aria (Arquitecta) pueda contextualizarse:
-  - Bash: `./scripts/ingest-docs.sh docs_ingested assets/spec.pdf assets/requisitos.docx data/tablas.xlsx`
-  - PowerShell: `./scripts/ingest-docs.ps1 -OutputDir docs_ingested assets/spec.pdf assets/requisitos.docx data/tablas.xlsx`
-- Requisitos:
-  - PDF: pdftotext (poppler-utils) o pandoc
-  - DOCX: pandoc
-  - XLSX: xlsx2csv (pip) o LibreOffice/soffice
-- Salida:
-  - Archivos .txt, .md o .csv en la carpeta elegida (por defecto docs_ingested)
-- Carga al asistente:
-  - Copia/pega o arrastra los archivos convertidos en Continue para que Aria los use como contexto
-
-## Prompts de arranque (Aria/Inés)
-- Aria: `meta/prompts/aria_kickoff.txt`
-  - Uso: en Continue, selecciona Aria, pega el prompt, sustituye `{{CLIENT}}` y `{{PROJECT}}`, adjunta documentos convertidos si aplica.
-- Inés: `meta/prompts/ines_kickoff.txt`
-  - Uso: tras la propuesta de Aria, selecciona Inés, pega el prompt y ejecuta scaffolding/entregables definidos.
-- Criterios de calidad: `meta/criterios_calidad.md` (aplicarlos desde el inicio).
+MIT — ver `LICENSE`.
